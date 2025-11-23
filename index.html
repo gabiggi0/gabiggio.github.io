@@ -143,7 +143,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.8rem;
             color: white;
             font-weight: 700;
             box-shadow: 
@@ -174,6 +173,11 @@
         .logo span {
             position: relative;
             z-index: 1;
+            font-size: 2rem;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .title-group {
@@ -542,7 +546,10 @@
             .logo {
                 width: 72px;
                 height: 72px;
-                font-size: 2.2rem;
+            }
+
+            .logo span {
+                font-size: 1.75rem;
             }
 
             h1 {
@@ -575,13 +582,14 @@
         /* Cursor effect */
         .cursor-glow {
             position: fixed;
-            width: 400px;
-            height: 400px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             pointer-events: none;
-            background: radial-gradient(circle, rgba(255, 107, 157, 0.05) 0%, transparent 40%);
-            z-index: 0;
-            transition: transform 0.1s ease-out;
+            background: radial-gradient(circle, rgba(255, 107, 157, 0.08) 0%, transparent 50%);
+            z-index: 9999;
+            mix-blend-mode: screen;
+            transition: transform 0.05s ease-out;
             transform: translate(-50%, -50%);
         }
     </style>
@@ -670,136 +678,141 @@
     </div>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Enhanced Particle System
+        // Elegant Gradient Band System
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
-        let particles = [];
-        let mouse = { x: null, y: null, radius: 150 };
+        const bands = [];
+        const bandCount = 5;
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
+        class GradientBand {
+            constructor(index) {
+                this.reset(index);
+            }
+
+            reset(index) {
+                // Create flowing diagonal bands
+                this.angle = Math.random() * 40 - 20; // -20 to 20 degrees
+                this.x = (index / bandCount) * canvas.width * 2 - canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.5;
-                this.opacity = Math.random() * 0.5 + 0.2;
-                this.color = Math.random() > 0.5 ? 'rgba(255, 107, 157,' : 'rgba(255, 160, 122,';
+                this.width = Math.random() * 500 + 300;
+                this.height = canvas.height * 1.5;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.2;
+                this.wobble = Math.random() * Math.PI * 2;
+                this.wobbleSpeed = 0.005 + Math.random() * 0.015;
+                this.opacity = Math.random() * 0.15 + 0.08;
+                
+                // Create gradient colors
+                const colors = [
+                    { r: 255, g: 107, b: 157 }, // Pink
+                    { r: 255, g: 160, b: 122 }, // Coral
+                    { r: 255, g: 182, b: 217 }, // Light pink
+                ];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
             }
 
             update() {
+                this.wobble += this.wobbleSpeed;
                 this.x += this.speedX;
                 this.y += this.speedY;
-
-                // Mouse interaction
-                if (mouse.x != null && mouse.y != null) {
-                    let dx = mouse.x - this.x;
-                    let dy = mouse.y - this.y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < mouse.radius) {
-                        const force = (mouse.radius - distance) / mouse.radius;
-                        const forceX = (dx / distance) * force * 2;
-                        const forceY = (dy / distance) * force * 2;
-                        
-                        this.x -= forceX;
-                        this.y -= forceY;
-                    }
+                
+                // Wrap around screen
+                if (this.x > canvas.width + this.width) {
+                    this.x = -this.width * 2;
+                } else if (this.x < -this.width * 2) {
+                    this.x = canvas.width + this.width;
                 }
-
-                // Wrap around edges
-                if (this.x < 0) this.x = canvas.width;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.y < 0) this.y = canvas.height;
-                if (this.y > canvas.height) this.y = 0;
+                
+                if (this.y > canvas.height + this.height) {
+                    this.y = -this.height;
+                } else if (this.y < -this.height) {
+                    this.y = canvas.height + this.height;
+                }
             }
 
             draw() {
-                ctx.fillStyle = this.color + this.opacity + ')';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.save();
+                
+                // Position and rotation
+                ctx.translate(
+                    this.x + Math.sin(this.wobble) * 30,
+                    this.y + Math.cos(this.wobble * 0.7) * 20
+                );
+                ctx.rotate((this.angle + Math.sin(this.wobble * 0.5) * 3) * Math.PI / 180);
+                
+                // Create gradient
+                const gradient = ctx.createLinearGradient(0, 0, this.width, 0);
+                gradient.addColorStop(0, 'transparent');
+                gradient.addColorStop(0.2, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.opacity * 0.3})`);
+                gradient.addColorStop(0.5, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.opacity})`);
+                gradient.addColorStop(0.8, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.opacity * 0.3})`);
+                gradient.addColorStop(1, 'transparent');
+                
+                // Draw with blur
+                ctx.filter = 'blur(60px)';
+                ctx.fillStyle = gradient;
+                ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+                
+                ctx.restore();
             }
         }
 
-        function init() {
-            particles = [];
-            const particleCount = Math.floor((canvas.width * canvas.height) / 15000);
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
+        // Initialize bands
+        for (let i = 0; i < bandCount; i++) {
+            bands.push(new GradientBand(i));
         }
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
+            bands.forEach(band => {
+                band.update();
+                band.draw();
             });
-
-            // Draw connections
-            particles.forEach((particle, i) => {
-                particles.slice(i + 1).forEach(particle2 => {
-                    const dx = particle.x - particle2.x;
-                    const dy = particle.y - particle2.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < 120) {
-                        ctx.strokeStyle = `rgba(255, 107, 157, ${0.15 * (1 - distance / 120)})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(particle.x, particle.y);
-                        ctx.lineTo(particle2.x, particle2.y);
-                        ctx.stroke();
-                    }
-                });
-            });
-
+            
             requestAnimationFrame(animate);
+        }
+
+        // Smooth cursor glow following
+        let mouseX = 0;
+        let mouseY = 0;
+        let currentX = 0;
+        let currentY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function updateCursor() {
+            // Smooth easing
+            currentX += (mouseX - currentX) * 0.08;
+            currentY += (mouseY - currentY) * 0.08;
+            
+            const cursorGlow = document.querySelector('.cursor-glow');
+            if (cursorGlow) {
+                cursorGlow.style.left = currentX + 'px';
+                cursorGlow.style.top = currentY + 'px';
+            }
+            
+            requestAnimationFrame(updateCursor);
         }
 
         // Event listeners
         window.addEventListener('resize', () => {
             resizeCanvas();
-            init();
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
-            
-            // Cursor glow effect
-            const cursorGlow = document.querySelector('.cursor-glow');
-            cursorGlow.style.left = e.x + 'px';
-            cursorGlow.style.top = e.y + 'px';
-        });
-
-        window.addEventListener('mouseleave', () => {
-            mouse.x = null;
-            mouse.y = null;
+            bands.forEach((band, i) => band.reset(i));
         });
 
         // Initialize
         resizeCanvas();
-        init();
         animate();
-
-        // Smooth scroll behavior
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            });
-        });
+        updateCursor();
 
         // Intersection Observer for fade-in animations
         const observerOptions = {
@@ -819,4 +832,10 @@
         // Observe elements with animation
         document.querySelectorAll('.work-card, .contact-section').forEach(el => {
             el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
