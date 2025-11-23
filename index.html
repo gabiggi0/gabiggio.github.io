@@ -84,8 +84,88 @@
         h1 {
             font-size: 3.5rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             letter-spacing: -0.02em;
+        }
+
+        .role {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .work-card {
+            background: rgba(255, 107, 157, 0.05);
+            border: 1px solid rgba(255, 107, 157, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0 3rem 0;
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+        }
+
+        .work-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .work-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ffa07a 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 20px var(--shadow-pink);
+        }
+
+        .work-title {
+            flex: 1;
+        }
+
+        .work-title h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .work-title span {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .work-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .work-tags {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(255, 107, 157, 0.15);
+            border: 1px solid rgba(255, 107, 157, 0.3);
+            padding: 0.4rem 0.9rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .tag-icon {
+            font-size: 0.9rem;
         }
 
         /* Sections */
@@ -114,21 +194,21 @@
             align-items: center;
             gap: 0.5rem;
             padding: 0.7rem 1.2rem;
-            background: var(--accent);
+            background: linear-gradient(135deg, #ff6b9d 0%, #ffa07a 100%);
             color: #fff;
             text-decoration: none;
             border-radius: 10px;
             font-weight: 500;
             font-size: 0.9rem;
             transition: all 0.2s;
-            border: 1px solid var(--accent);
+            border: 1px solid transparent;
             box-shadow: 0 4px 20px var(--shadow-pink);
         }
 
         .btn:hover {
             transform: translateY(-1px);
             box-shadow: 0 6px 30px rgba(255, 107, 157, 0.5);
-            background: #ff8ab3;
+            filter: brightness(1.1);
         }
 
         .btn-secondary {
@@ -157,6 +237,16 @@
             .container {
                 padding: 0 2rem;
             }
+
+            .work-card {
+                padding: 1.5rem;
+            }
+
+            .work-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
         }
 
         html {
@@ -172,6 +262,32 @@
             <div class="logo">&lt;/&gt;</div>
             <h1>Gabriele Biggio</h1>
         </header>
+
+        <div class="work-card">
+            <div class="work-header">
+                <div class="work-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="work-title">
+                    <h3>Technical Implementation Manager</h3>
+                    <span>Hive Technologies · Berlin, Germany</span>
+                </div>
+            </div>
+            <p class="work-description">
+                Bridging Hive's technology with partners' existing systems and workflows. Managing technical integrations, coordinating between teams, and ensuring smooth implementation of Hive's platform.
+            </p>
+            <div class="work-tags">
+                <span class="tag"><span class="tag-icon">⚡</span>System Integration</span>
+                <span class="tag"><span class="tag-icon">🤖</span>Agentic AI</span>
+                <span class="tag"><span class="tag-icon">🔌</span>API</span>
+                <span class="tag"><span class="tag-icon">📊</span>Business Intelligence</span>
+                <span class="tag"><span class="tag-icon">📦</span>WMS</span>
+            </div>
+        </div>
 
         <section id="contact">
             <div class="contact-links">
