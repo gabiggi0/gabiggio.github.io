@@ -14,11 +14,11 @@
         :root {
             --bg: #000000;
             --text: #ffffff;
-            --text-secondary: #ff6b6b;
-            --accent: #ff3333;
-            --border: #1a0000;
-            --card-bg: #1a0505;
-            --shadow-red: rgba(255, 51, 51, 0.15);
+            --text-secondary: #ffb3d9;
+            --accent: #ff6b9d;
+            --border: #1a0a0f;
+            --card-bg: #1a0a12;
+            --shadow-pink: rgba(255, 107, 157, 0.2);
         }
 
         body {
@@ -69,7 +69,7 @@
         .logo {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            background: linear-gradient(135deg, #ff6b9d 0%, #ffa07a 100%);
             border-radius: 20px;
             margin: 0 0 2rem 0;
             display: flex;
@@ -78,7 +78,7 @@
             font-size: 2.5rem;
             color: white;
             font-weight: 600;
-            box-shadow: 0 8px 32px rgba(255, 0, 0, 0.4);
+            box-shadow: 0 8px 32px rgba(255, 107, 157, 0.4);
         }
 
         h1 {
@@ -122,13 +122,13 @@
             font-size: 0.9rem;
             transition: all 0.2s;
             border: 1px solid var(--accent);
-            box-shadow: 0 4px 20px var(--shadow-red);
+            box-shadow: 0 4px 20px var(--shadow-pink);
         }
 
         .btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 6px 30px rgba(255, 51, 51, 0.4);
-            background: #ff0000;
+            box-shadow: 0 6px 30px rgba(255, 107, 157, 0.5);
+            background: #ff8ab3;
         }
 
         .btn-secondary {
@@ -139,9 +139,9 @@
         }
 
         .btn-secondary:hover {
-            background: #250a0a;
+            background: #2a1520;
             border-color: var(--accent);
-            box-shadow: 0 4px 20px var(--shadow-red);
+            box-shadow: 0 4px 20px var(--shadow-pink);
         }
 
         /* Responsive */
@@ -213,9 +213,9 @@
                 this.element.style.height = this.height + 'px';
                 this.element.style.background = `linear-gradient(135deg, 
                     transparent 0%, 
-                    rgba(139, 0, 0, ${opacity * 0.3}) 20%,
-                    rgba(255, 0, 0, ${opacity}) 50%,
-                    rgba(139, 0, 0, ${opacity * 0.3}) 80%,
+                    rgba(255, 160, 122, ${opacity * 0.3}) 20%,
+                    rgba(255, 107, 157, ${opacity}) 50%,
+                    rgba(255, 182, 193, ${opacity * 0.4}) 80%,
                     transparent 100%)`;
                 this.element.style.filter = 'blur(80px)';
                 this.element.style.borderRadius = '50%';
