@@ -12,7 +12,7 @@
         }
 
         :root {
-            --bg: #0a0a0a;
+            --bg: #000000;
             --text: #ffffff;
             --text-secondary: #ff6b6b;
             --accent: #ff3333;
@@ -23,49 +23,47 @@
 
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background: var(--bg);
+            background: #000000;
             color: var(--text);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             position: relative;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        body::before {
-            content: '';
+        /* Particle Background */
+        #particles {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: linear-gradient(45deg, #000000, #0a0000, #1a0000, #0a0000, #000000);
-            background-size: 400% 400%;
-            animation: lavaLamp 15s ease infinite;
         }
 
-        @keyframes lavaLamp {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
         }
 
         .container {
             max-width: 900px;
-            margin: 0 auto;
-            padding: 0 2rem;
+            margin: 0;
+            padding: 0 4rem;
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         /* Header */
         header {
-            padding: 8rem 0 6rem;
-            text-align: center;
+            padding: 0 0 1.5rem 0;
+            text-align: left;
         }
 
         .logo {
@@ -73,7 +71,7 @@
             height: 80px;
             background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
             border-radius: 20px;
-            margin: 0 auto 2rem;
+            margin: 0 0 2rem 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -90,37 +88,10 @@
             letter-spacing: -0.02em;
         }
 
-        .subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-        }
-
-        /* Navigation */
-        nav {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            margin: 3rem 0 5rem;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-            font-size: 1rem;
-        }
-
-        nav a:hover {
-            color: var(--text);
-        }
-
         /* Sections */
         section {
-            margin-bottom: 8rem;
-            text-align: center;
+            margin-bottom: 0;
+            text-align: left;
         }
 
         h2 {
@@ -130,85 +101,25 @@
             letter-spacing: -0.01em;
         }
 
-        /* Projects Grid */
-        .projects-grid {
-            display: grid;
-            gap: 1.5rem;
-        }
-
-        .project-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-
-        .project-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px var(--shadow-red);
-            border-color: var(--accent);
-            background: linear-gradient(135deg, #1a0505 0%, #0f0000 100%);
-        }
-
-        .project-card h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .project-card p {
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
-        .project-meta {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            padding: 0.4rem 0.8rem;
-            border-radius: 8px;
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-        }
-
-        /* About Section */
-        .about-content {
-            font-size: 1.125rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-            max-width: 700px;
-        }
-
-        .about-content p {
-            margin-bottom: 1.5rem;
-        }
-
         /* Contact */
         .contact-links {
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: flex-start;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.875rem 1.5rem;
+            padding: 0.7rem 1.2rem;
             background: var(--accent);
-            color: var(--bg);
+            color: #fff;
             text-decoration: none;
-            border-radius: 12px;
+            border-radius: 10px;
             font-weight: 500;
+            font-size: 0.9rem;
             transition: all 0.2s;
             border: 1px solid var(--accent);
             box-shadow: 0 4px 20px var(--shadow-red);
@@ -233,55 +144,36 @@
             box-shadow: 0 4px 20px var(--shadow-red);
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 4rem 0;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            border-top: 1px solid var(--border);
-            margin-top: 8rem;
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
             }
 
-            header {
-                padding: 4rem 0 3rem;
-            }
-
             h2 {
                 font-size: 1.75rem;
             }
 
-            section {
-                margin-bottom: 5rem;
-            }
-
             .container {
-                padding: 0 1.5rem;
+                padding: 0 2rem;
             }
         }
 
-        /* Smooth scroll */
         html {
             scroll-behavior: smooth;
         }
     </style>
 </head>
 <body>
+    <div id="particles"></div>
+    
     <div class="container">
         <header>
-            <div class="logo">A</div>
-            <h1>Your Name</h1>
-            <p class="subtitle">Developer & Designer</p>
+            <div class="logo">&lt;/&gt;</div>
+            <h1>Gabriele Biggio</h1>
         </header>
 
         <section id="contact">
-            <h2>Get in Touch</h2>
             <div class="contact-links">
                 <a href="mailto:gabriele.bgg@proton.me" class="btn">Email Me</a>
                 <a href="https://www.linkedin.com/in/gabriele-biggio-it/" class="btn btn-secondary">LinkedIn</a>
@@ -289,8 +181,77 @@
         </section>
     </div>
 
-            <footer>
-        <p>© 2025 Gabriele Biggio. All rights reserved.</p>
-    </footer>
+    <script>
+        const particlesContainer = document.getElementById('particles');
+        const bandCount = 5;
+        const bands = [];
+
+        class GradientBand {
+            constructor(index) {
+                this.element = document.createElement('div');
+                this.element.className = 'particle';
+                
+                this.reset(index);
+                
+                particlesContainer.appendChild(this.element);
+            }
+
+            reset(index) {
+                // Create diagonal bands
+                this.angle = Math.random() * 60 - 30; // -30 to 30 degrees variation
+                this.position = (index / bandCount) * 200 - 50; // Spread across screen
+                this.width = Math.random() * 400 + 300;
+                this.height = Math.random() * 1500 + 1000;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.3;
+                this.wobble = Math.random() * 2;
+                this.wobbleSpeed = (Math.random() - 0.5) * 0.02;
+                
+                const opacity = Math.random() * 0.15 + 0.08;
+                
+                this.element.style.width = this.width + 'px';
+                this.element.style.height = this.height + 'px';
+                this.element.style.background = `linear-gradient(135deg, 
+                    transparent 0%, 
+                    rgba(139, 0, 0, ${opacity * 0.3}) 20%,
+                    rgba(255, 0, 0, ${opacity}) 50%,
+                    rgba(139, 0, 0, ${opacity * 0.3}) 80%,
+                    transparent 100%)`;
+                this.element.style.filter = 'blur(80px)';
+                this.element.style.borderRadius = '50%';
+            }
+
+            update() {
+                this.wobble += this.wobbleSpeed;
+                this.position += this.speedX;
+
+                const x = this.position + Math.sin(this.wobble) * 100;
+                const y = Math.cos(this.wobble) * 50;
+
+                // Wrap around screen
+                if (this.position < -this.width) this.position = window.innerWidth + this.width;
+                if (this.position > window.innerWidth + this.width) this.position = -this.width;
+
+                this.element.style.left = x + '%';
+                this.element.style.top = y + '%';
+                this.element.style.transform = `rotate(${45 + this.angle + Math.sin(this.wobble * 0.5) * 10}deg)`;
+            }
+        }
+
+        for (let i = 0; i < bandCount; i++) {
+            bands.push(new GradientBand(i));
+        }
+
+        function animate() {
+            bands.forEach(band => band.update());
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            bands.forEach(band => band.reset(bands.indexOf(band)));
+        });
+    </script>
 </body>
 </html>
